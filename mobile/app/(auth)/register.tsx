@@ -1,6 +1,7 @@
 import { useAuth } from "@/contexts/auth-context";
 import { useState } from "react";
 import { View, Text, TextInput, TouchableOpacity } from "react-native";
+import { Link } from 'expo-router';
 
 export default function Register() {
   const { register } = useAuth();
@@ -48,7 +49,13 @@ export default function Register() {
           className="h-12 rounded-full bg-blue-500 items-center justify-center"
         >
           <Text className="text-white font-bold">Create account</Text>
+        
         </TouchableOpacity>
+        <View className="items-center justify-center">
+         <Link href={'/(auth)/login'}>
+          <Text className="text-black font-bold">Already have account?</Text>
+          </Link>
+          </View>
       </View>
     </View>
   );

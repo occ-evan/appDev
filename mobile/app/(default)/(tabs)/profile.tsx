@@ -13,6 +13,12 @@ export default function Profile() {
       >
         <Text className="text-white font-bold">Logout</Text>
       </TouchableOpacity>
+      <TouchableOpacity 
+        onPress={() => navigation.navigate('../(pages)/home/createBlog')}
+        className="h-12 rounded-full bg-blue-500 items-center justify-center mt-5"
+      >
+        <Text className="text-white ">Create blog</Text>
+      </TouchableOpacity>
     </View>
   );
 }

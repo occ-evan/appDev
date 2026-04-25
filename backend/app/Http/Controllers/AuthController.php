@@ -6,6 +6,7 @@ use App\Models\User;
 use Hash;
 use Illuminate\Http\Request;
 use Illuminate\Validation\Rules\Password;
+use Illuminate\Support\Facades\Storage; 
 
 class AuthController extends Controller
 {
@@ -63,5 +64,35 @@ class AuthController extends Controller
         return response()->json([
             'message' => 'Logout successfully!'
         ], 200);
+    }
+
+
+    public function createProfile(Request $request) {
+        $request->validate([
+           'profile_photo' => 'required|image|mimes:jpeg,png,jpg,webp|max:10000',
+        ]);
+    
+        $user = $request->user();
+
+        if ($user->profile_photo) {
+            Storage::disk('public')->delete($user->profile_photo);
+        }
+
+        $path = $request->file('profile_photo')->store('profiles', 'public');
+        $user->update(['profile_photo' => $path]);
+
+        return response()->json(['message' => 'Profile updated!']);
+    }
+
+    public function deleteProfile(Request $request) {
+        $user = $request->user();       
+
+        if ($user->profile_photo) {
+            Storage::disk('public')->delete($user->profile_photo);
+        }
+
+        $user->delete();
+
+        return response()->json(['message' => 'Account deleted successfully']);
     }
 }

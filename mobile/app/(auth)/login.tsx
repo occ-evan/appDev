@@ -1,15 +1,16 @@
 import { useAuth } from "@/contexts/auth-context";
 import { useState } from "react";
 import { View, Text, TextInput, TouchableOpacity } from "react-native";
+import { Link } from 'expo-router';
 
 export default function Login() {
   const { login } = useAuth();
   const [email, setEmail] = useState("");
   const [password, setPassword] = useState("");
 
-  const handleLogin = () => {
-    login({ email, password });
-  };
+    const handleLogin = () => {
+      login({ email, password }); 
+    };
 
   return (
     <View className="flex-1 items-center justify-center p-4">
@@ -34,6 +35,11 @@ export default function Login() {
         >
           <Text className="text-white font-bold">Login</Text>
         </TouchableOpacity>
+        <View className="items-center justify-center">
+                 <Link href={'/(auth)/register'}>
+                  <Text className="text-black font-bold">Do not have account?</Text>
+                  </Link>
+                  </View>
       </View>
     </View>
   );
